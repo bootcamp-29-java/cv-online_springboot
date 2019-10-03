@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Certification" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="64dc09af-7495-4eea-9957-a844d4d1e047">
+	<property name="ireport.zoom" value="1.3310000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$F{tb_tr_certification_employee}]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     tb_tr_certification.`id` AS tb_tr_certification_id,
+     tb_tr_certification.`code` AS tb_tr_certification_code,
+     tb_tr_certification.`attachment` AS tb_tr_certification_attachment,
+     tb_tr_certification.`employee` AS tb_tr_certification_employee,
+     tb_tr_certification.`certificate` AS tb_tr_certification_certificate,
+     tb_m_certificate.`id` AS tb_m_certificate_id,
+     tb_m_certificate.`name` AS tb_m_certificate_name,
+     tb_m_certificate.`institution` AS tb_m_certificate_institution,
+     tb_m_institution.`id` AS tb_m_institution_id,
+     tb_m_institution.`name` AS tb_m_institution_name
+FROM
+     `tb_m_certificate` tb_m_certificate INNER JOIN `tb_tr_certification` tb_tr_certification ON tb_m_certificate.`id` = tb_tr_certification.`certificate`
+     INNER JOIN `tb_m_institution` tb_m_institution ON tb_m_certificate.`institution` = tb_m_institution.`id`
+WHERE
+     tb_tr_certification.employee = $P{id}]]>
+	</queryString>
+	<field name="tb_tr_certification_id" class="java.lang.String"/>
+	<field name="tb_tr_certification_code" class="java.lang.String"/>
+	<field name="tb_tr_certification_attachment" class="java.lang.Object"/>
+	<field name="tb_tr_certification_employee" class="java.lang.String"/>
+	<field name="tb_tr_certification_certificate" class="java.lang.Integer"/>
+	<field name="tb_m_certificate_id" class="java.lang.Integer"/>
+	<field name="tb_m_certificate_name" class="java.lang.String"/>
+	<field name="tb_m_certificate_institution" class="java.lang.Integer"/>
+	<field name="tb_m_institution_id" class="java.lang.Integer"/>
+	<field name="tb_m_institution_name" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" forecolor="#0066FF" uuid="c7e07c6e-033c-4d7b-80fe-446d42756e2b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CERTIFICATION]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement x="36" y="0" width="428" height="20" uuid="88e6c4dd-5b23-48a9-afb1-c2e058552d84"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tb_m_institution_name} + " - " + $F{tb_m_certificate_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="36" y="20" width="428" height="20" uuid="86b86f69-e6c7-40c3-9c84-2e1c4ff807cf"/>
+				<textFieldExpression><![CDATA["Certificate Code: " + $F{tb_tr_certification_code}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

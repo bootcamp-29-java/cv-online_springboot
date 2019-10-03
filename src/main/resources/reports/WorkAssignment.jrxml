@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="WorkAssignment" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="788b41ae-0ff4-4fc5-bdbe-0e2e09ac69f3">
+	<property name="ireport.zoom" value="1.2100000000000029"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$F{tb_tr_work_assignment_employee}]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     tb_tr_work_assignment.`id` AS tb_tr_work_assignment_id,
+     tb_tr_work_assignment.`company` AS tb_tr_work_assignment_company,
+     tb_tr_work_assignment.`position` AS tb_tr_work_assignment_position,
+     tb_tr_work_assignment.`job_description` AS tb_tr_work_assignment_job_description,
+     tb_tr_work_assignment.`start_date` AS tb_tr_work_assignment_start_date,
+     tb_tr_work_assignment.`end_date` AS tb_tr_work_assignment_end_date,
+     tb_tr_work_assignment.`employee` AS tb_tr_work_assignment_employee
+FROM
+     `tb_tr_work_assignment` tb_tr_work_assignment
+WHERE
+    tb_tr_work_assignment.`employee` = $P{id}]]>
+	</queryString>
+	<field name="tb_tr_work_assignment_id" class="java.lang.String"/>
+	<field name="tb_tr_work_assignment_company" class="java.lang.String"/>
+	<field name="tb_tr_work_assignment_position" class="java.lang.String"/>
+	<field name="tb_tr_work_assignment_job_description" class="java.lang.String"/>
+	<field name="tb_tr_work_assignment_start_date" class="java.util.Date"/>
+	<field name="tb_tr_work_assignment_end_date" class="java.util.Date"/>
+	<field name="tb_tr_work_assignment_employee" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" forecolor="#0066FF" uuid="f2c604de-e16e-43c5-a5f4-b3da1e19c240"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[WORK ASSIGNMENT]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="128" splitType="Stretch">
+			<textField pattern="(MMMMM) (yyyy)" isBlankWhenNull="false">
+				<reportElement x="36" y="19" width="94" height="20" uuid="a5694c10-366f-40ce-9466-0132d4690461"/>
+				<textFieldExpression><![CDATA[$F{tb_tr_work_assignment_start_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="36" y="0" width="428" height="19" uuid="c2985f14-929c-4aeb-aac2-d549e3bb2c6a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tb_tr_work_assignment_position} + " at " + $F{tb_tr_work_assignment_company}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="19" width="11" height="20" uuid="9fd1e36d-f938-48f2-bc49-cb2282797c13"/>
+				<textFieldExpression><![CDATA["-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="(MMMMM) (yyyy)" isBlankWhenNull="false">
+				<reportElement x="141" y="19" width="94" height="20" uuid="48acc116-25dd-40f2-9905-a635f9bcee31"/>
+				<textFieldExpression><![CDATA[$F{tb_tr_work_assignment_end_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="36" y="68" width="428" height="60" uuid="03973f4a-5e13-4fdb-ba5d-59ff36a744c3"/>
+				<textFieldExpression><![CDATA[$F{tb_tr_work_assignment_job_description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="36" y="48" width="428" height="20" uuid="426e3a83-66f8-45b2-a43a-fbdd0231a07a"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Job Description:"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

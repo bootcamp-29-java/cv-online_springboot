@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Curriculum Vitae" pageWidth="595" pageHeight="842" columnWidth="453" leftMargin="71" rightMargin="71" topMargin="22" bottomMargin="42" uuid="ceddc74e-980c-4cfc-a758-335f4dce7edd">
+	<property name="ireport.zoom" value="1.2100000000000029"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="121"/>
+	<parameter name="id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$F{tb_m_employee_id}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Wehijin\\Documents\\Project_3\\cvonline\\src\\main\\resources\\reports\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     tb_m_employee.`id` AS tb_m_employee_id,
+     tb_m_employee.`first_name` AS tb_m_employee_first_name,
+     tb_m_employee.`last_name` AS tb_m_employee_last_name,
+     tb_m_employee.`email` AS tb_m_employee_email,
+     tb_m_employee.`birth_place` AS tb_m_employee_birth_place,
+     tb_m_employee.`birth_date` AS tb_m_employee_birth_date,
+     tb_m_employee.`gender` AS tb_m_employee_gender,
+     tb_m_employee.`nationality` AS tb_m_employee_nationality,
+     tb_m_employee.`photo` AS tb_m_employee_photo,
+     tb_m_employee.`religion` AS tb_m_employee_religion,
+     tb_m_employee.`marital` AS tb_m_employee_marital,
+     tb_m_religion.`id` AS tb_m_religion_id,
+     tb_m_religion.`name` AS tb_m_religion_name,
+     tb_m_marital.`id` AS tb_m_marital_id,
+     tb_m_marital.`name` AS tb_m_marital_name
+FROM
+     `tb_m_religion` tb_m_religion INNER JOIN `tb_m_employee` tb_m_employee ON tb_m_religion.`id` = tb_m_employee.`religion`
+     INNER JOIN `tb_m_marital` tb_m_marital ON tb_m_employee.`marital` = tb_m_marital.`id`
+WHERE
+     tb_m_employee.id = $P{id}]]>
+	</queryString>
+	<field name="tb_m_employee_id" class="java.lang.String"/>
+	<field name="tb_m_employee_first_name" class="java.lang.String"/>
+	<field name="tb_m_employee_last_name" class="java.lang.String"/>
+	<field name="tb_m_employee_email" class="java.lang.String"/>
+	<field name="tb_m_employee_birth_place" class="java.lang.String"/>
+	<field name="tb_m_employee_birth_date" class="java.sql.Date"/>
+	<field name="tb_m_employee_gender" class="java.lang.String"/>
+	<field name="tb_m_employee_nationality" class="java.lang.String"/>
+	<field name="tb_m_employee_photo" class="java.io.InputStream"/>
+	<field name="tb_m_employee_religion" class="java.lang.Integer"/>
+	<field name="tb_m_employee_marital" class="java.lang.Integer"/>
+	<field name="tb_m_religion_id" class="java.lang.Integer"/>
+	<field name="tb_m_religion_name" class="java.lang.String"/>
+	<field name="tb_m_marital_id" class="java.lang.Integer"/>
+	<field name="tb_m_marital_name" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="367" height="68" uuid="48c6ee33-7b3a-492a-8d26-5a4a48926158"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tb_m_employee_first_name} + " " + $F{tb_m_employee_last_name}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="78" width="453" height="1" uuid="9873bbdc-e506-41ad-af7a-de1b5ba116ef"/>
+				<graphicElement>
+					<pen lineWidth="3.0"/>
+				</graphicElement>
+			</line>
+			<image>
+				<reportElement x="369" y="0" width="84" height="68" uuid="5c19a9ad-162e-4d2a-8fdd-0d1e4f836b1c"/>
+				<imageExpression><![CDATA["C:\\Users\\Wehijin\\Documents\\Project_3\\cvonline\\src\\main\\resources\\static\\images\\mii-logo.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="165" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="124" height="20" forecolor="#0066FF" uuid="1a106642-6d1f-4a70-b7d5-71f575ac24d3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PERSONAL DATA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="36" width="100" height="20" uuid="8e3aa3ff-bcc3-4d1a-bea3-7de5a309de5d"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Date of Birth :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="56" width="100" height="20" uuid="d7eb14d8-cd45-4904-981a-c51b7522a7da"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Nationality :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="76" width="100" height="20" uuid="bce9c194-384f-4dce-9a8b-45a3e94cc701"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Marital Status :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="96" width="100" height="20" uuid="bb3163c1-aed1-4d4e-9714-41784aef51a9"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Gender :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="116" width="100" height="20" uuid="d8933f77-3d4b-4ebf-87eb-664bd2ea89e4"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Religion :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="136" width="100" height="20" uuid="13471f0f-31ec-43dc-8871-2a9fdc291d7b"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Email :]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="100" y="36" width="166" height="20" uuid="de9dca1e-1072-43a8-890e-b3d379093762"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tb_m_employee_birth_place} + ", " + $F{tb_m_employee_birth_date}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="100" y="56" width="166" height="20" uuid="5727149d-29b6-48d5-8917-a23d6a2f8dd7"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tb_m_employee_nationality}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="100" y="76" width="166" height="20" uuid="14c664fc-13a6-4ef9-8e5d-6fe5054d9c88"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tb_m_marital_name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="100" y="96" width="166" height="20" uuid="2dd1c8b7-a887-4ff9-8a6e-56095bff2965"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tb_m_employee_gender}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="116" width="166" height="20" uuid="50d7cb61-e36f-44a4-8c49-e49cbc1fe8f2"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tb_m_religion_name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="100" y="136" width="166" height="20" uuid="99ac8d98-f061-47aa-a985-09f28b32658b"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tb_m_employee_email}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="331" y="36" width="122" height="120" uuid="403849f0-89a4-418b-b0ad-63f3137c9598"/>
+				<imageExpression><![CDATA[$F{tb_m_employee_photo}]]></imageExpression>
+			</image>
+		</band>
+		<band height="75">
+			<subreport>
+				<reportElement x="0" y="0" width="453" height="72" uuid="561e50cc-0100-4b7d-a55b-0803707ed246"/>
+				<subreportParameter name="id">
+					<subreportParameterExpression><![CDATA[$F{tb_m_employee_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "EducationHistory.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="75">
+			<subreport>
+				<reportElement x="0" y="0" width="453" height="64" uuid="7dc61487-404d-4554-b902-4e38de2b1992"/>
+				<subreportParameter name="id">
+					<subreportParameterExpression><![CDATA[$F{tb_m_employee_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "TechnicalQualification.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="75">
+			<subreport>
+				<reportElement x="0" y="0" width="453" height="75" uuid="986cbc93-b9f5-46f9-a875-40ed174b7721"/>
+				<subreportParameter name="id">
+					<subreportParameterExpression><![CDATA[$F{tb_m_employee_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "WorkAssignment.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="75">
+			<subreport>
+				<reportElement x="0" y="0" width="453" height="72" uuid="ad459f1d-2311-4bae-bd7d-c73a6b1ddbf4"/>
+				<subreportParameter name="id">
+					<subreportParameterExpression><![CDATA[$F{tb_m_employee_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Project.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="75">
+			<subreport>
+				<reportElement x="0" y="0" width="453" height="75" uuid="2551d9fa-ff4a-42f7-8541-28a94ebaaa3e"/>
+				<subreportParameter name="id">
+					<subreportParameterExpression><![CDATA[$F{tb_m_employee_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Certification.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="75">
+			<subreport>
+				<reportElement x="0" y="0" width="453" height="75" uuid="f81079a3-4f52-40bc-b09f-16bb753f1a04"/>
+				<subreportParameter name="id">
+					<subreportParameterExpression><![CDATA[$F{tb_m_employee_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Training.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="75">
+			<subreport>
+				<reportElement x="0" y="0" width="453" height="75" uuid="ac7877a4-ba4b-4009-94ca-b82e71295466"/>
+				<subreportParameter name="id">
+					<subreportParameterExpression><![CDATA[$F{tb_m_employee_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Organization.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="75">
+			<subreport>
+				<reportElement x="0" y="0" width="453" height="75" uuid="dc178a7e-59b9-44b3-8085-e749f72538fc"/>
+				<subreportParameter name="id">
+					<subreportParameterExpression><![CDATA[$F{tb_m_employee_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Experience.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="75">
+			<subreport>
+				<reportElement x="0" y="0" width="453" height="75" uuid="aa81335d-2d05-48ae-93b2-b24f159e6184"/>
+				<subreportParameter name="id">
+					<subreportParameterExpression><![CDATA[$F{tb_m_employee_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Award.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="453" height="33" uuid="fab9c753-b95e-443a-afb2-877e67b1b593"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[PT Mitra Integrasi Informatika
+APL Tower 37th Floor Suite 1-8, Jl. Letjen S. Parman Kav.28, Jakarta Barat, 11470
+]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

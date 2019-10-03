@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Experience" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="0c49590f-7c59-42d4-b053-b17f457fda35">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$F{tb_tr_experience_employee}]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     tb_tr_experience.`id` AS tb_tr_experience_id,
+     tb_tr_experience.`name` AS tb_tr_experience_name,
+     tb_tr_experience.`date` AS tb_tr_experience_date,
+     tb_tr_experience.`employee` AS tb_tr_experience_employee
+FROM
+     `tb_tr_experience` tb_tr_experience
+WHERE
+     tb_tr_experience.employee = $P{id}]]>
+	</queryString>
+	<field name="tb_tr_experience_id" class="java.lang.String"/>
+	<field name="tb_tr_experience_name" class="java.lang.String"/>
+	<field name="tb_tr_experience_date" class="java.lang.String"/>
+	<field name="tb_tr_experience_employee" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" forecolor="#0066FF" uuid="887b50a0-246e-4379-887b-1265bcee3ef9"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EXPERIENCE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="83" splitType="Stretch">
+			<textField>
+				<reportElement x="36" y="25" width="428" height="50" uuid="0f308bec-7ab7-425f-8c22-f62a3972e7bd"/>
+				<textFieldExpression><![CDATA[$F{tb_tr_experience_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="36" y="0" width="100" height="20" uuid="9ff6a35d-ddbe-44b5-898f-7bdc2ee94e45"/>
+				<textFieldExpression><![CDATA[$F{tb_tr_experience_date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

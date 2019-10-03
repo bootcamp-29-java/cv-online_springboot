@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Homepage</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--CSS-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+        <link rel="stylesheet" href="css/customized.css">
+        <!--End CSS-->
+    </head>
+    <body>
+        <ul id="slide-out" class="sidenav sidenav-fixed">
+            <li>
+                <div class="user-view">
+                    <div class="background">
+                        <img src="images/bg-login.jpg">
+                    </div>
+                    <!--<img class="circle" th:attr="src=@{'data:image/jpeg;base64,'+${employeeId.photo}}">-->
+                    <span class="white-text" th:text="${employeeId.firstName}"></span> <span class="white-text" th:text="${employeeId.lastName}"></span><br>
+                    <span class="white-text email" th:text="${employeeId.email}"></span>
+                    <span class="white-text email" th:text="${employeeRole.role.name}"></span>
+                    <a th:href="@{/logout}"><span class="white-text">Log Out</span></a>
+                </div>
+            </li>
+            <li><a class="subheader">Employee</a></li>
+            <li><a href="curriculum-vitae"><i class="material-icons">account_circle</i>Curriculum Vitae</a></li>
+            <li th:if="${employeeRole.role.name == 'MANAGER'}"><a class="subheader">Manager</a></li>
+            <li th:if="${employeeRole.role.name == 'MANAGER'}"><a href="cv-employee"><i class="material-icons">people</i>View CV Employee</a></li>
+        </ul>
+        <a href="#" data-target="slide-out" class="btn-floating btn-large waves-effect waves-light red sidenav-trigger"><i class="material-icons left">menu</i></a>
+
+        <main>
+            <div class="row">
+                <div class="col s12">
+                    <div id="Welcome" class="card hoverable">
+                        <div class="card-content">
+                            <span class="card-title" th:text="'Hello ' + ${employeeId.firstName}"></span>
+                            <div class="row">
+                                <div class="col s12">
+                                    This is your homepage
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!--Javascript-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+        <script src="../js/customized.js"></script>
+        <!--End Javascript-->
+    </body>
+</html>

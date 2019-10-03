@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Login</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    </head>
+    <body class="black valign-wrapper" style="height: 100vh; width: 100vw; background: url('images/bg-login.jpg') no-repeat center; background-size: cover;">
+        <div class="row center-align">
+            <div class="col s12">
+                <div class="card hoverable">
+                    <div class="card-content">
+                        <span class="card-title">
+                            Sign In
+                        </span>
+                        <form class="login100-form validate-form" th:action="@{/login}" method="POST">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">email</i>
+                                    <input th:id="username" th:name="username" type="email" placeholder="Email" class="validate" required>
+                                </div>
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">verified_user</i>
+                                    <input th:id="password" th:name="password" type="password" placeholder="Password" class="validate" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <button class="btn waves-effect waves-light" type="submit">
+                                    Login
+                                    <i class="material-icons right">send</i>
+                                </button>
+                            </div>
+                        </form>
+                        <div class="row">
+                            <a class="modal-trigger" href="#forgotPassword">Forgot Password</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Structure -->
+        <div id="forgotPassword" class="modal">
+            <form action="#" method="POST">
+                <div class="modal-content">
+                    <div class="row">
+                        <div class="input-field col s12 center-align">
+                            <h4>Please Insert Your Email To Reset Password</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">email</i>
+                            <input th:id="email" th:name="email" type="email" placeholder="Email" class="validate">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="modal-close waves-effect waves-green btn-flat">Submit</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Javascript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+        <script src="js/customized.js"></script>
+        <script th:inline="javascript" th:if="${statusLogin == false}">
+            $(document).ready(function () {
+                Swal.fire({
+                  type: 'error',
+                  title: 'Failed',
+                  text: 'Username / Password may be wrong!'
+                })
+            });
+        </script>
+        <!--End of Javascript-->
+    </body>
+</html>

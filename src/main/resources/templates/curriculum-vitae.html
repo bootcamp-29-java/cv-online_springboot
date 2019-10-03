@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Staff Page - Create CV</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--CSS-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+        <link rel="stylesheet" href="css/customized.css">
+        <!--End CSS-->
+    </head>
+    <body>
+        <ul id="slide-out" class="sidenav sidenav-fixed">
+            <li><a href="login"><i class="material-icons">keyboard_arrow_left</i>Back to Homepage</a></li>
+            <li><div class="divider"></div></li>
+            <li><a class="subheader">CV Online</a></li>
+            <li><a href="#Personal"><i class="material-icons">person</i>Personal Data</a></li>
+            <li><a href="#Language"><i class="material-icons">language</i>Language</a></li>
+            <li><a href="#Education"><i class="material-icons">school</i>Educational Qualification</a></li>
+            <li><a href="#Technical"><i class="material-icons">desktop_mac</i>Technical Qualification</a></li>
+            <li><a href="#Work"><i class="material-icons">work</i>Work Assignment</a></li>
+            <li><a href="#Project"><i class="material-icons">widgets</i>Project</a></li>
+            <li><a href="#Certificate"><i class="material-icons">description</i>Certification</a></li>
+            <li><a href="#Training"><i class="material-icons">storage</i>Training</a></li>
+            <li><a href="#Organization"><i class="material-icons">people</i>Organization</a></li>
+            <li><a href="#Experience"><i class="material-icons">record_voice_over</i>Experience</a></li>
+            <li><a href="#Award"><i class="material-icons">star</i>Award</a></li>
+            <li><div class="divider"></div></li>
+            <li><a class="subheader">Export</a></li>
+            <li><a th:href="@{'/save-cv?id=' + ${employees.id}}"><i class="material-icons">archive</i>Save to PDF</a></li>
+        </ul>
+        <a href="#" data-target="slide-out" class="btn-floating btn-large waves-effect waves-light red sidenav-trigger"><i class="material-icons left">menu</i></a>
+
+        <header>
+        </header>
+
+        <main>
+            <div class="row">
+                <div class="col s12">
+                    <!--Personal Data-->
+                    <div id="Personal" class="card hoverable">
+                        <div class="card-content">
+                            <span class="card-title center">Personal Data</span>
+                            <div class="row">
+                                <form class="col s12" th:action="@{/save-personaldata}" th:object="${employee}" enctype="multipart/form-data" method="POST">
+                                    <div class="row">
+                                        <div class="input-field col s12 m6">
+                                            <input type="text" th:id="id" th:name="id" th:value="${employees.id}" placeholder="ID" class="validate" readonly required>
+                                            <label for="id">ID <span class="red-text">*</span></label>
+                                        </div>
+                                        <div class="input-field col s12 m6">
+                                            <input type="email" th:id="email" th:name="email" th:value="${employees.email}" placeholder="Email" class="validate" readonly required maxlength="50">
+                                            <label for="email">Email <span class="red-text">*</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12 m6">
+                                            <input type="text" th:id="firstName" th:name="firstName" th:value="${employees.firstName}" placeholder="First Name" class="validate" readonly required maxlength="50">
+                                            <label for="first_name">First Name <span class="red-text">*</span></label>
+                                        </div>
+                                        <div class="input-field col s12 m6">
+                                            <input type="text" th:id="lastName" th:name="lastName" th:value="${employees.lastName}" placeholder="Last Name" class="validate" readonly required maxlength="50">
+                                            <label for="last_name">Last Name <span class="red-text">*</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12 m6">
+                                            <input type="text" th:id="birthPlace" th:name="birthPlace" th:value="${employees.birthPlace}" placeholder="Birth Place" class="validate" required maxlength="50">
+                                            <label for="birthPlace">Birth Place</label>
+                                        </div>
+                                        <div class="input-field col s12 m6">
+                                            <input type="text" th:id="birthDate" th:name="birthDate" th:value="${employees.birthDate}" placeholder="YYYY/MM/DD" class="validate datepicker" required>
+                                            <label for="birthDate">Birth Date</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12 m6">
+                                            <select th:id="religion.id" th:name="religion.id" required>
+                                                <option value="" disabled selected>Choose your Religion</option>
+                                                <option th:each="re : ${religions}" th:value="${re.id}" th:text="${re.name}" th:selected="(${employees?.religion?.id} == ${re.id})"></option>
+                                            </select>
+                                            <label>Religion</label>
+                                        </div>
+                                        <div class="input-field col s12 m6">
+                                            <select th:id="marital.id" th:name="marital.id" required>
+                                                <option value="" disabled selected>Choose your Marital Status</option>
+                                                <option th:each="ma : ${maritals}" th:value="${ma.id}" th:text="${ma.name}" th:selected="(${employees?.marital?.id} == ${ma.id})"></option>
+                                            </select>
+                                            <label>Marital</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12 m4">
+                                            <p>Gender:</p>
+                                        </div>
+                                        <div class="input-field col s12 m4">
+                                            <p>
+                                                <label>
+                                                    <input class="with-gap" type="radio" th:id="genderMale" th:name="gender" value="Male" th:checked="(${employees.gender} == 'Male')" />
+                                                    <span>Male</span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                        <div class="input-field col s12 m4">
+                                            <p>
+                                                <label>
+                                                    <input class="with-gap" type="radio" th:id="genderFemale" th:name="gender" value="Female" th:checked="(${employees.gender} == 'Female')" />
+                                                    <span>Female</span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12 m4">
+                                            <p>Nationality:</p>
+                                        </div>
+                                        <div class="input-field col s12 m4">
+                                            <p>
+                                                <label>
+                                                    <input class="with-gap" th:id="nationalityWNI" th:name="nationality" type="radio" value="WNI" th:checked="(${employees.nationality} == 'WNI')"/>
+                                                    <span>WNI</span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                        <div class="input-field col s12 m4">
+                                            <p>
+                                                <label>
+                                                    <input class="with-gap" th:id="nationalityWNA" th:name="nationality" type="radio" value="WNA" th:checked="(${employees.nationality} == 'WNA')"/>
+                                                    <span>WNA</span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="file-field input-field">
+                                            <div class="btn">
+                                                <span>Attach Photo</span>
+                                                <input type="file" th:id="photos" th:name="photos" accept="image/*" required>
+                                            </div>
+                                            <div class="file-path-wrapper">
+                                                <input id="pathPhoto" class="file-path validate" type="text" placeholder="Upload your photo">
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="card-action blue-text">
+                            <button type="submit" class="btn tooltipped waves-effect waves-light" data-position="bottom" data-tooltip="Save Personal Data"><i class="material-icons left">save</i>Save</button>
+                        </div>
+                        </form>
+                    </div>
+                    <!--End Personal Data-->
+
+                    <!--Language-->
+                    <div id="Language" class="card hoverable">
+                        <div class="card-content">
+                            <span class="card-title center">Language</span>
+                            <div class="row">
+                                <form class="col s6" th:action="@{/save-employeelanguage}" th:object="${employeeLanguage}" method="POST">
+                                    <input type="hidden" th:id="employee" th:name="employee" th:value="${employees.id}">
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <select th:id="language" th:name="language.id" required>
+                                                <option value="" disabled selected>Choose Language</option>
+                                                <option th:each="la : ${languages}" th:value="${la.id}" th:text="${la.name}"></option>
+                                            </select>
+                                            <label>Language</label>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn tooltipped waves-effect waves-light" data-position="bottom" data-tooltip="Add Language"><i class="material-icons left">add_circle</i>Add</button>
+                                </form>
+                                <div class="col s6">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Language</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="ela : ${employeeLanguages}">
+                                                <td th:text="${ela.language.name}"></td>
+                                                <td><button type="button" class="btn-floating tooltipped red darken-3 waves-effect waves-light" data-position="bottom" data-tooltip="Remove" th:attr="onclick=|deleteEmployeeLanguage('${ela.id}')|"><i class="material-icons left">remove_circle_outline</i></button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Language-->
+
+                    <!--Education Qualification-->
+                    <div id="Education" class="card hoverable">
+                        <div class="card-content">
+                            <span class="card-title center">Educational Qualification</span>
+                            <div class="row">
+                                <form class="col s12" th:action="@{/save-educationhistory}" th:object="${educationHistory}" enctype="multipart/form-data" method="POST">
+                                    <input type="hidden" th:id="employee" th:name="employee" th:value="${employees.id}">
+                                    <div class="row">
+                                        <div class="input-field col s12 m6">
+                                            <select th:id="education" th:name="education.id">
+                                                <option value="" disabled selected>Choose Education</option>
+                                                <option th:each="edu : ${educations}" th:value="${edu.id}"><span th:text="${edu.degree.name}"></span> - <span th:text="${edu.university.name}"></span> - <span th:text="${edu.major.name}"></span></option>
+                                            </select>
+                                            <label>Universities</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="file-field input-field col s12 m6">
+                                            <div class="btn">
+                                                <span>Certificate</span>
+                                                <input type="file" th:id="certificate" th:name="certificate" accept="application/msword, application/pdf, image/*" required>
+                                            </div>
+                                            <div class="file-path-wrapper">
+                                                <input class="file-path validate" type="text" placeholder="Upload Certificate Here" required>
+                                            </div>
+                                        </div>
+                                        <div class="input-field col s12 m6">
+                                            <input placeholder="3.50" th:id="gpa" th:name="gpa" type="text" class="validate" required maxlength="5">
+                                            <label for="awardStartDate">GPA</label>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn tooltipped waves-effect waves-light" data-position="bottom" data-tooltip="Add Education History"><i class="material-icons left">add_circle</i>Add</button>
+                                </form>
+                                <div class="col s12">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>University Name</th>
+                                                <th>Majors</th>
+                                                <th>Degree</th>
+                                                <th>GPA</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="eduHis : ${educationHistories}">
+                                                <td th:text="${eduHis.education.university.name}"></td>
+                                                <td th:text="${eduHis.education.major.name}"></td>
+                                                <td th:text="${eduHis.education.degree.name}"></td>
+                                                <td th:text="${eduHis.gpa}"></td>
+                                                <td><button type="button" class="btn-floating tooltipped red darken-3 waves-effect waves-light" data-position="bottom" data-tooltip="Remove" th:attr="onclick=|deleteEducation('${eduHis.id}')|"><i class="material-icons left">remove_circle_outline</i></button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Education Qualification-->
+
+                    <!--Technical Qualification-->
+                    <div id="Technical" class="card hoverable">
+                        <div class="card-content">
+                            <span class="card-title center">Technical Qualification</span>
+                            <div class="row">
+                                <form class="col s6" th:action="@{/save-employeeskill}" th:object="${employeeSkill}" method="POST">
+                                    <input type="hidden" th:id="employee" th:name="employee" th:value="${employees.id}">
+                                    <div class="row">
+                                        <div class="input-field col s12 m6">
+                                            <select id="categorySelector">
+                                                <option value="" disabled selected>Choose Category</option>
+                                                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                                            </select>
+                                            <label>Category</label>
+                                        </div>
+                                        <div id="skillPRG" class="input-field col s12 m6 skill">
+                                            <select th:id="skill" th:name="skill.id">
+                                                <option value="" disabled selected>Choose Skills</option>
+                                                <option th:each="skillPRG : ${skillsPRG}" th:value="${skillPRG.id}" th:text="${skillPRG.name}"></option>
+                                            </select>
+                                            <label>Skill Name</label>
+                                        </div>
+                                        <div id="skillPOS" class="input-field col s12 m6 skill">
+                                            <select th:id="skill" th:name="skill.id">
+                                                <option value="" disabled selected>Choose Skills</option>
+                                                <option th:each="skillPOS : ${skillsPOS}" th:value="${skillPOS.id}" th:text="${skillPOS.name}"></option>
+                                            </select>
+                                            <label>Skill Name</label>
+                                        </div>
+                                        <div id="skillAPP" class="input-field col s12 m6 skill">
+                                            <select th:id="skill" th:name="skill.id">
+                                                <option value="" disabled selected>Choose Skills</option>
+                                                <option th:each="skillAPP : ${skillsAPP}" th:value="${skillAPP.id}" th:text="${skillAPP.name}"></option>
+                                            </select>
+                                            <label>Skill Name</label>
+                                        </div>
+                                        <div id="skillDEV" class="input-field col s12 m6 skill">
+                                            <select th:id="skill" th:name="skill.id">
+                                                <option value="" disabled selected>Choose Skills</option>
+                                                <option th:each="skillDEV : ${skillsDEV}" th:value="${skillDEV.id}" th:text="${skillDEV.name}"></option>
+                                            </select>
+                                            <label>Skill Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <p class="range-field">
+                                                <label for="score">Score (scale 1-10)</label>
+                                                <input type="range" th:id="score" th:name="score" min="0" max="10" />
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn tooltipped waves-effect waves-light" data-position="bottom" data-tooltip="Add Technical Qualification"><i class="material-icons left">add_circle</i>Add</button>
+                                </form>
+                                <div class="col s6">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Category</th>
+                                                <th>Skill</th>
+                                                <th>Score</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="esk : ${employeeSkills}">
+                                                <td th:text="${esk.skill.category.name}"></td>
+                                                <td th:text="${esk.skill.name}"></td>
+                                                <td><div class="progress"><div class="determinate tooltipped" data-position="bottom" th:data-tooltip="@{${esk.score}}" th:style="'width: '+ @{${esk.score}} +'0%'"></div></div></td>
+                                                <td><button type="button" class="btn-floating tooltipped red darken-3 waves-effect waves-light" data-position="bottom" data-tooltip="Remove" th:attr="onclick=|deleteEmployeeSkill('${esk.id}')|"><i class="material-icons left">remove_circle_outline</i></button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Technical Qualification-->
+
+                    <!--Work Assignment-->
+                    <div id="Work" class="card hoverable">
+                        <div class="card-content">
+                            <span class="card-title center">Work Assignment</span>
+                            <div class="row">
+                                <form class="col s12" th:action="@{/save-workassignment}" th:object="${workAssignment}" method="POST">
+                                    <input type="hidden" th:id="employee" th:name="employee" th:value="${employees.id}">
+                                    <div class="row">
+                                        <div class="input-field col s12 m6">
+                                            <input placeholder="Company Name" th:id="companyName" th:name="company" type="text" class="validate" required maxlength="100">
+                                            <label for="companyName">Company Name</label>
+                                        </div>
+                                        <div class="input-field col s12 m6">
+                                            <input placeholder="Position Name" th:id="positionName" th:name="position" type="text" class="validate" required maxlength="100">
+                                            <label for="jobPosition">Position</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <textarea th:id="jobDescription" th:name="jobDescription" class="materialize-textarea" data-length="500" required maxlength="500"></textarea>
+                                            <label for="jobDescription">Job Description</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12 m6">
+                                            <input placeholder="YYYY/MM/DD" th:id="awardStartDate" th:name="startDate" type="text" class="validate datepicker" required maxlength="10">
+                                            <label for="jobStartDate">Start Date</label>
+                                        </div>
+                                        <div class="input-field col s12 m6">
+                                            <input placeholder="YYYY/MM/DD" th:id="jobEndDate" th:name="endDate" type="text" class="validate datepicker" required maxlength="10">
+                                            <label for="jobEndDate">End Date</label>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn tooltipped waves-effect waves-light" data-position="bottom" data-tooltip="Add Job History"><i class="material-icons left">add_circle</i>Add</button>
+                                </form>
+                                <div class="col s12">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Company Name</th>
+                                                <th>Position</th>
+                                                <th>Start Date</th>
+                                                <th>End Date</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="work : ${works}">
+                                                <td th:text="${work.company}"></td>
+                                                <td th:text="${work.position}"></td>
+                                                <td th:text="${work.startDate}"></td>
+                                                <td th:text="${work.endDate}"></td>
+                                                <td><button type="button" class="btn-floating tooltipped red darken-3 waves-effect waves-light" data-position="bottom" data-tooltip="Remove" th:attr="onclick=|deleteWorkAssignment('${work.id}')|"><i class="material-icons left">remove_circle_outline</i></button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Work Assignment-->
+
+                    <!--Project-->
+                    <div id="Project" class="card hoverable">
+                        <div class="card-content">
+                            <span class="card-title center">Project</span>
+                            <div class="row">                                                                                                                                                                                                        
+                                <form class="col s6" th:action="@{/save-project}" th:object="${project}" method="POST">
+                                    <input type="hidden" th:id="employee" th:name="employee" th:value="${employees.id}">
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <input placeholder="Project Name" th:id="project" th:name="name" type="text" class="validate" required maxlength="100">
+                                            <label for="projectName">Project Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <textarea th:id="projectDescription" th:name="description" class="materialize-textarea" data-length="500" required maxlength="500"></textarea>
+                                            <label for="projectDescription">Project Description</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12 m6">
+                                            <input placeholder="YYYY/MM/DD" th:id="projectStartDate" th:name="startDate" type="text" class="validate datepicker" required maxlength="10">
+                                            <label for="projectStartDate">Start Date</label>
+                                        </div>
+                                        <div class="input-field col s12 m6">
+                                            <input placeholder="YYYY/MM/DD" th:id="awardStartDate" th:name="endDate" type="text" class="validate datepicker" required maxlength="10">
+                                            <label for="projectEndDate">End Date</label>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn tooltipped waves-effect waves-light" data-position="bottom" data-tooltip="Add Project"><i class="material-icons left">add_circle</i>Add</button>
+                                </form>
+                                <div class="col s6">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Project Name</th>
+                                                <th>Start Date</th>
+                                                <th>End Date</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="prj : ${projects}">
+                                                <td th:text="${prj.name}"></td>
+                                                <td th:text="${prj.startDate}"></td>
+                                                <td th:text="${prj.endDate}"></td>
+                                                <td><button type="button" class="btn-floating red tooltipped darken-3 waves-effect waves-light" data-position="bottom" data-tooltip="Remove" th:attr="onclick=|deleteProject('${prj.id}')|"><i class="material-icons left">remove_circle_outline</i></button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Project-->
+
+                    <!--Certification-->
+                    <div id="Certificate" class="card hoverable">
+                        <div class="card-content">
+                            <span class="card-title center">Certification</span>
+                            <div class="row">
+                                <form class="col s6" th:action="@{/save-certification}" th:object="${certification}" enctype="multipart/form-data" method="POST">
+                                    <input type="hidden" th:id="certificationEmployee" th:name="employee" th:value="${employees.id}">
+                                    <div class="row">
+                                        <div class="input-field col s12 m6">
+                                            <select id="instituteSelector">
+                                                <option value="" disabled selected>Choose the Institution</option>
+                                                <option th:each="ins : ${institutions}" th:value="${ins.id}" th:text="${ins.name}"></option>
+                                            </select>
+                                            <label for="institution">Institution</label>
+                                        </div>
+                                        <div id="certificateOracle" class="input-field col s12 m6 certificates">
+                                            <select th:id="certificate" th:name="certificate.id">
+                                                <option value="" disabled selected>Choose the Category</option>
+                                                <option th:each="cer : ${certificatesOracle}" th:value="${cer.id}" th:text="${cer.name}"></option>
+                                            </select>
+                                            <label for="certificate">Certificate Name</label>
+                                        </div>
+                                        <div id="certificateMicrosoft" class="input-field col s12 m6 certificates">
+                                            <select th:id="certificate" th:name="certificate.id">
+                                                <option value="" disabled selected>Choose the Category</option>
+                                                <option th:each="cer : ${certificatesMicrosoft}" th:value="${cer.id}" th:text="${cer.name}"></option>
+                                            </select>
+                                            <label for="certificate">Certificate Name</label>
+                                        </div>
+                                        <div id="certificateCisco" class="input-field col s12 m6 certificates">
+                                            <select th:id="certificate" th:name="certificate.id">
+                                                <option value="" disabled selected>Choose the Category</option>
+                                                <option th:each="cer : ${certificatesCisco}" th:value="${cer.id}" th:text="${cer.name}"></option>
+                                            </select>
+                                            <label for="certificate">Certificate Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12 m6">
+                                            <input placeholder="Certificate Code" th:id="certificationCode" th:name="code" type="text" class="validate" maxlength="10" required>
+                                            <label for="certificationCode">Certificate Code</label>
+                                        </div>
+                                        <div class="file-field input-field col s12 m6">
+                                            <div class="btn">
+                                                <span>File</span>
+                                                <input type="file" th:id="certificated" th:name="certificated" accept="application/msword, application/pdf, image/*" reqired>
+                                            </div>
+                                            <div class="file-path-wrapper">
+                                                <input class="file-path validate" type="text" placeholder="Upload file">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn tooltipped waves-effect waves-light" data-position="bottom" data-tooltip="Add Certification"><i class="material-icons left">add_circle</i>Add</button>
+                                </form>
+                                <div class="col s6">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Certificate Name</th>
+                                                <th>Code</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="cer : ${certifications}">
+                                                <td th:text="${cer.certificate.name}"></td>
+                                                <td th:text="${cer.code}"></td>
+                                                <td><button type="button" class="btn-floating tooltipped red darken-3 waves-effect waves-light" data-position="bottom" data-tooltip="Remove" th:attr="onclick=|deleteCertification('${cer.id}')|"><i class="material-icons left">remove_circle_outline</i></button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Certification-->
+
+                    <!--Training-->
+                    <div id="Training" class="card hoverable">
+                        <div class="card-content">
+                            <span class="card-title center">Training</span>
+                            <div class="row">
+                                <form class="col s12" th:action="@{/save-training}" th:object="${training}" method="POST">
+                                    <input type="hidden" th:id="trainingEmployee" th:name="employee" th:value="${employees.id}">
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <textarea th:id="trainingDescription" th:name="name" class="materialize-textarea" data-length="500" maxlength="500" required></textarea>
+                                            <label for="trainingDescription">Training Description</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12 m6">
+                                            <input placeholder="YYYY/MM/DD" th:id="trainingStartDate" th:name="startDate" type="text" class="validate datepicker" maxlength="10" required>
+                                            <label for="trainingStartDate">Start Date</label>
+                                        </div>
+                                        <div class="input-field col s12 m6">
+                                            <input placeholder="YYYY/MM/DD" id="trainingEndDate" th:name="endDate" type="text" class="validate datepicker" maxlength="10" required>
+                                            <label for="trainingEndDate">End Date</label>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn tooltipped waves-effect waves-light" data-position="bottom" data-tooltip="Add Training"><i class="material-icons left">add_circle</i>Add</button>
+                                </form>
+                                <div class="col s12">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Training Description</th>
+                                                <th>Start Date</th>
+                                                <th>End Date</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="tra : ${trainings}">
+                                                <td th:text="${tra.name}"></td>
+                                                <td th:text="${tra.startDate}"></td>
+                                                <td th:text="${tra.endDate}"></td>
+                                                <td><button type="button" class="btn-floating red tooltipped darken-3 waves-effect waves-light" data-position="bottom" data-tooltip="Remove" th:attr="onclick=|deleteTraining('${tra.id}')|"><i class="material-icons left">remove_circle_outline</i></button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Training -->
+
+                    <!-- Organization -->
+                    <div id="Organization" class="card hoverable">
+                        <div class="card-content">
+                            <span class="card-title center">Organization</span>
+                            <div class="row">
+                                <form class="col s12" th:action="@{/save-organization}" th:object="${organization}" method="POST">
+                                    <input type="hidden" th:id="organizationEmployee" th:name="employee" th:value="${employees.id}">
+                                    <div class="row">
+                                        <div class="input-field col s12 m6">
+                                            <input placeholder="Organization Name" th:id="organizationDescription" th:name="name" type="text" class="validate" maxlength="100" required>
+                                            <label for="organizationName">Organization Name</label>
+                                        </div>
+                                        <div class="input-field col s12 m6">
+                                            <input placeholder="Organization Position" th:id="organizationPosition" th:name="position" type="text" class="validate" maxlength="100" required>
+                                            <label for="organizationPosition">Position</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12 m6">
+                                            <input placeholder="YYYY/MM/DD" th:id="organizationStartDate" th:name="startPeriod" type="text" class="validate datepicker" maxlength="10" required>
+                                            <label for="organizationStartDate">Start Date</label>
+                                        </div>
+                                        <div class="input-field col s12 m6"> 
+                                            <input placeholder="YYYY/MM/DD" th:id="organizationEndDate" th:name="endPeriod" type="text" class="validate datepicker" maxlength="10" required>
+                                            <label for="organizationEndDate">End Date</label>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn tooltipped waves-effect waves-light" data-position="bottom" data-tooltip="Add Organization"><i class="material-icons left">add_circle</i>Add</button>
+                                </form>
+                                <div class="col s12">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Organization Name</th>
+                                                <th>Position</th>
+                                                <th>Start Period</th>
+                                                <th>End Period</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="org : ${organizations}">
+                                                <td th:text="${org.name}"></td>
+                                                <td th:text="${org.position}"></td>
+                                                <td th:text="${org.startPeriod}"></td>
+                                                <td th:text="${org.endPeriod}"></td>
+                                                <td><button type="button" class="btn-floating red tooltipped darken-3 waves-effect waves-light" data-position="bottom" data-tooltip="Remove" th:attr="onclick=|deleteOrganization('${org.id}')|"><i class="material-icons left">remove_circle_outline</i></button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Organization-->
+
+                    <!--Experience-->
+                    <div id="Experience" class="card hoverable">
+                        <div class="card-content">
+                            <span class="card-title center">Experience</span>
+                            <div class="row">
+                                <form class="col s12" th:action="@{/save-experience}" th:object="${experience}" method="POST">
+                                    <input type="hidden" th:id="descriptionEmployee" th:name="employee" th:value="${employees.id}">
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <textarea th:id="experienceDescription" th:name="name" class="materialize-textarea" data-length="500" maxlength="500" required></textarea>
+                                            <label for="experienceDescription">Experience Description</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12 m6">
+                                            <input placeholder="YYYY/MM/DD" th:id="experienceDate" th:name="date" type="text" class="validate datepicker" maxlength="10" required>
+                                            <label for="experienceDate">Experience Date</label>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn tooltipped waves-effect waves-light" data-position="bottom" data-tooltip="Add Experience"><i class="material-icons left">add_circle</i>Add</button>
+                                </form>
+                                <div class="col s12">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Experience Description</th>
+                                                <th>Date</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="exp : ${experiences}">
+                                                <td th:text="${exp.name}"></td>
+                                                <td th:text="${exp.date}"></td>
+                                                <td><button type="button" class="btn-floating tooltipped red darken-3 waves-effect waves-light" data-position="bottom" data-tooltip="Remove" th:attr="onclick=|deleteExperience('${exp.id}')|"><i class="material-icons left">remove_circle_outline</i></button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Experience-->
+
+                    <!--Award-->
+                    <div id="Award" class="card hoverable">
+                        <div class="card-content">
+                            <span class="card-title center">Award</span>
+                            <div class="row">
+                                <form class="col s12" th:action="@{/save-award}" th:object="${award}" method="POST">
+                                    <input type="hidden" th:id="awardId" th:name="employee" th:value="${employees.id}">
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <textarea th:id="awardDescription" th:name="name" class="materialize-textarea" data-length="500" maxlength="500" required></textarea>
+                                            <label for="awardDescription">Award Description</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12 m6">
+                                            <input th:id="awardDate" th:name="date" placeholder="YYYY/MM/DD" type="text" class="validate datepicker" maxlength="10" required>
+                                            <label for="awardDate">Date</label>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn tooltipped waves-effect waves-light" data-position="bottom" data-tooltip="Add Award"><i class="material-icons left">add_circle</i>Add</button>
+                                </form>
+                                <div class="col s12">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Award Name</th>
+                                                <th>Date</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="awa : ${awards}">
+                                                <td th:text="${awa.name}"></td>
+                                                <td th:text="${awa.date}"></td>
+                                                <td><button type="button" class="btn-floating tooltipped red darken-3 waves-effect waves-light" data-position="bottom" data-tooltip="Remove" th:attr="onclick=|deleteAward('${awa.id}')|"><i class="material-icons left">remove_circle_outline</i></button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Award-->
+                </div>
+            </div>
+        </main>
+
+        <!--Javascript-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+        <script src="../js/customized.js"></script>
+        <!--End Javascript-->
+    </body>
+</html>

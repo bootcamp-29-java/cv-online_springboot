@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TechnicalQualification" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="1cc7bba5-5374-4587-b5e1-683c453b995b">
+	<property name="ireport.zoom" value="1.4641000000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     tb_tr_employee_skill.`id` AS tb_tr_employee_skill_id,
+     tb_tr_employee_skill.`score` AS tb_tr_employee_skill_score,
+     tb_tr_employee_skill.`employee` AS tb_tr_employee_skill_employee,
+     tb_tr_employee_skill.`skill` AS tb_tr_employee_skill_skill,
+     tb_m_skill.`id` AS tb_m_skill_id,
+     tb_m_skill.`name` AS tb_m_skill_name,
+     tb_m_skill.`category` AS tb_m_skill_category,
+     tb_m_category.`id` AS tb_m_category_id,
+     tb_m_category.`name` AS tb_m_category_name
+FROM
+     `tb_m_skill` tb_m_skill INNER JOIN `tb_tr_employee_skill` tb_tr_employee_skill ON tb_m_skill.`id` = tb_tr_employee_skill.`skill`
+     INNER JOIN `tb_m_category` tb_m_category ON tb_m_skill.`category` = tb_m_category.`id`
+WHERE
+     tb_tr_employee_skill.employee = $P{id}]]>
+	</queryString>
+	<field name="tb_tr_employee_skill_id" class="java.lang.String"/>
+	<field name="tb_tr_employee_skill_score" class="java.lang.Integer"/>
+	<field name="tb_tr_employee_skill_employee" class="java.lang.String"/>
+	<field name="tb_tr_employee_skill_skill" class="java.lang.Integer"/>
+	<field name="tb_m_skill_id" class="java.lang.Integer"/>
+	<field name="tb_m_skill_name" class="java.lang.String"/>
+	<field name="tb_m_skill_category" class="java.lang.String"/>
+	<field name="tb_m_category_id" class="java.lang.String"/>
+	<field name="tb_m_category_name" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="21" forecolor="#0066FF" uuid="24394ac4-5984-4813-9c13-f6a79e991f8c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TECHNICAL QUALIFICATION]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="234" y="0" width="100" height="20" uuid="e8370949-c741-4594-b973-425cf36d9f2c"/>
+				<textFieldExpression><![CDATA[$F{tb_m_skill_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="36" y="0" width="100" height="20" uuid="15b357e7-2df6-4b09-8f83-b36e9b2c3beb"/>
+				<textFieldExpression><![CDATA[$F{tb_m_category_name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

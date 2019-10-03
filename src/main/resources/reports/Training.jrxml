@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Training" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="7c5998bf-da76-497d-bb81-3e48d57f6b1d">
+	<property name="ireport.zoom" value="1.771561000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$F{tb_tr_training_employee}]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     tb_tr_training.`id` AS tb_tr_training_id,
+     tb_tr_training.`name` AS tb_tr_training_name,
+     tb_tr_training.`start_date` AS tb_tr_training_start_date,
+     tb_tr_training.`end_date` AS tb_tr_training_end_date,
+     tb_tr_training.`employee` AS tb_tr_training_employee
+FROM
+     `tb_tr_training` tb_tr_training
+WHERE
+     tb_tr_training.employee = $P{id}]]>
+	</queryString>
+	<field name="tb_tr_training_id" class="java.lang.String"/>
+	<field name="tb_tr_training_name" class="java.lang.String"/>
+	<field name="tb_tr_training_start_date" class="java.sql.Date"/>
+	<field name="tb_tr_training_end_date" class="java.sql.Date"/>
+	<field name="tb_tr_training_employee" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" forecolor="#0066FF" uuid="435ec8ef-5fcc-4976-a91d-40370eddcb6f"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TRAINING]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="43" splitType="Stretch">
+			<textField>
+				<reportElement x="36" y="0" width="426" height="20" uuid="75761660-caab-4bed-bcd9-23b5d30fe393"/>
+				<textFieldExpression><![CDATA[$F{tb_tr_training_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="36" y="20" width="91" height="20" uuid="f25cc52f-747e-4218-b7aa-b843cc113641"/>
+				<textFieldExpression><![CDATA[$F{tb_tr_training_start_date}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="139" y="20" width="91" height="20" uuid="53ef5710-53fd-44bc-a44d-ea1d28b66924"/>
+				<textFieldExpression><![CDATA[$F{tb_tr_training_end_date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="130" y="20" width="6" height="20" uuid="04d2a222-209f-46c9-9c33-2c39127b40b4"/>
+				<text><![CDATA[-]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

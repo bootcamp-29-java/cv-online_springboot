@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Organization" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="a566c3d7-3d22-4928-a85b-d994f7f4fc76">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$F{tb_tr_organization_employee}]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     tb_tr_organization.`id` AS tb_tr_organization_id,
+     tb_tr_organization.`name` AS tb_tr_organization_name,
+     tb_tr_organization.`position` AS tb_tr_organization_position,
+     tb_tr_organization.`start_period` AS tb_tr_organization_start_period,
+     tb_tr_organization.`end_period` AS tb_tr_organization_end_period,
+     tb_tr_organization.`employee` AS tb_tr_organization_employee
+FROM
+     `tb_tr_organization` tb_tr_organization
+WHERE
+     tb_tr_organization.employee = $P{id}]]>
+	</queryString>
+	<field name="tb_tr_organization_id" class="java.lang.String"/>
+	<field name="tb_tr_organization_name" class="java.lang.String"/>
+	<field name="tb_tr_organization_position" class="java.lang.String"/>
+	<field name="tb_tr_organization_start_period" class="java.sql.Date"/>
+	<field name="tb_tr_organization_end_period" class="java.sql.Date"/>
+	<field name="tb_tr_organization_employee" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" forecolor="#0066FF" uuid="4e2535bb-ed51-4c63-bea0-feb1d9a65a8d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ORGANIZATION]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="49" splitType="Stretch">
+			<textField pattern="(MMMMM) (yyyy)">
+				<reportElement x="36" y="23" width="88" height="20" uuid="4c6ef1d8-5cbd-49b2-825d-5140e4f9be78"/>
+				<textFieldExpression><![CDATA[$F{tb_tr_organization_start_period}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="129" y="23" width="5" height="20" uuid="c1f157cb-73d5-4efa-b5cc-426d5909c319"/>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<textField pattern="(MMMMM) (yyyy)">
+				<reportElement x="139" y="23" width="88" height="20" uuid="78792d23-9820-46ad-a176-5ab18a470e29"/>
+				<textFieldExpression><![CDATA[$F{tb_tr_organization_end_period}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="36" y="0" width="429" height="20" uuid="2dc5eb7c-763d-4e38-89a9-62c81969799a"/>
+				<textFieldExpression><![CDATA[$F{tb_tr_organization_name} + " as " + $F{tb_tr_organization_position}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

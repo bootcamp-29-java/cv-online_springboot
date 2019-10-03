@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Award" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="22868faa-ecf0-48e0-9154-6cce546f8e95">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$F{tb_tr_award_employee}]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     tb_tr_award.`id` AS tb_tr_award_id,
+     tb_tr_award.`name` AS tb_tr_award_name,
+     tb_tr_award.`date` AS tb_tr_award_date,
+     tb_tr_award.`employee` AS tb_tr_award_employee
+FROM
+     `tb_tr_award` tb_tr_award
+WHERE
+     tb_tr_award.employee = $P{id}]]>
+	</queryString>
+	<field name="tb_tr_award_id" class="java.lang.String"/>
+	<field name="tb_tr_award_name" class="java.lang.String"/>
+	<field name="tb_tr_award_date" class="java.lang.String"/>
+	<field name="tb_tr_award_employee" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" forecolor="#0066FF" uuid="9091a0fe-f386-43e0-b8b7-577e487075da"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AWARD]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="85" splitType="Stretch">
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="36" y="0" width="100" height="20" uuid="d1010e03-eb63-4194-9c47-b35942fb5b43"/>
+				<textFieldExpression><![CDATA[$F{tb_tr_award_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="36" y="26" width="432" height="50" uuid="3068ce88-f5aa-4c2f-8658-279d4201d2ad"/>
+				<textFieldExpression><![CDATA[$F{tb_tr_award_name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
